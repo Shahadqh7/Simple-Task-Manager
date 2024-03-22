@@ -5,7 +5,7 @@
 ## collection for testing the API endpoints on Postman testing Test various scenarios, including edge cases and error handling
 
 - GetAll operation 
-![GetAll operation by Postman ]("./Images/gitAll.png")
+![GetAll operation by Postman ]("/./Images/gitAll.png")
 
 - GetById operation with existing ID 
 ![GetById operation by Postman with existing ID ]("C:\Users\ASUS\Pictures\Screenshots\getById.png")
