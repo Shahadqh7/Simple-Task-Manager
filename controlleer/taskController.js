@@ -22,7 +22,7 @@ function writeFile(data) {
      const getAll = (req , res) => {
     
         try {
-            // Sending a JSON response containing all universities
+            
             res.status(200).json({task: readFile()})
         } catch(e) {
             // Handling errors and sending a 500 status code with error message
