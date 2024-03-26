@@ -1,6 +1,8 @@
 const fs = require('fs')
 const uuid = require('uuid')
 const path = require('path');
+const { error } = require('console');
+const e = require('express');
 
 function readFile() {
     const filePath = path.resolve(__dirname, '../Task.json');
@@ -50,16 +52,26 @@ function writeFile(data) {
         const data = req.body
         let task = readFile()
         const id = uuid.v4()
-    
+    try{
         if(task[id]){
              return res.json({'message' :`Task Id: ${id} is already exist`})
     
-        }
-        data['id']=id
+        } 
+         data['id']=id
         task[id] = data
         writeFile(task)
     
          res.status(201).json({'message' :task[id]})
+         data['id']=id
+         task[id] = data
+         writeFile(task)
+     
+          res.status(201).json({'message' :task[id]})}
+
+        catch(e){
+            return res.status(500).json({error:e})
+        }
+       
 
    
     
@@ -69,6 +81,9 @@ function writeFile(data) {
         const data = req.body
         const id = req.params.id
         let task = readFile()
+        try{
+
+        
         if (task[id]){
             data['id']=id
             task[id] = data
@@ -76,7 +91,10 @@ function writeFile(data) {
             res.status(201).json({'message' :task[id]})
     
         } 
-        return res.json({'message' :`Task Id: ${id}not found `})
+        return res.json({'message' :`Task Id: ${id}not found `}) }
+        catch(e){
+            return res.status(500).json({error:e})
+        }
     
         
     }
@@ -85,15 +103,17 @@ function writeFile(data) {
 
         const idTask=req.params.id
         const task= readFile()[idTask]
-    
+        try{
         if(!task){
            return  res.json({'message' : `The task with ID: ${idTask} does not exist`  })
         }
         delete task[idTask]
         res.json({'message' : `The task with ID: ${idTask} has been deleted`  })
+    }
+    catch(e){
+        return res.status(500).json({error:e})
+    }
 
-    
-    
     }
 
 
